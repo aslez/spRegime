@@ -1,9 +1,15 @@
-Package: spRegime
-Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2016-05-12
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Package: spregime
+Date: 2015-02-20
+Title: Spatial regime analysis
+Version: 0.1
+Authors@R: person("Adam", "Slez", email = "aslez@virginia.edu",
+    role = c("aut", "cre"))
+Description: This package provides basic tools for testing for the existence of
+    spatial regimes.
+Depends: Matrix
+License: MIT + file LICENSE
+LazyData: true
+Suggests: testthat
+Packaged: 2015-02-25 21:44:28 UTC; Adam
+Author: Adam Slez [aut, cre]
+Maintainer: Adam Slez <aslez@virginia.edu>
