@@ -1,9 +1,14 @@
-spchow <- function(mods) {
+spchow <- function(mods, var_int) {
   G <- mods$G
   K <- mods$K
   zero_mat <- matrix(0, nrow = G - 1, ncol = G * K)
   R_lst <- lapply(1:K, mat_rep, zero_mat = zero_mat)
   R <- do.call(rbind, R_lst)
+  if (var_int) {
+    first_int <- min(which(names(mods$b) == "(Intercept)"))
+    keep_rows <- R[, first_int] != 1
+    R <- R[keep_rows, ]
+  }
   wald <- wald_test(R, mods$b, mods$vm)
   p <- pchisq(wald, (G - 1) * K, lower.tail = FALSE)
   result <- list(reg_lst = mods, wald = wald, wald.p = p)

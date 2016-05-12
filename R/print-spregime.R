@@ -1,5 +1,10 @@
 print.spregime <- function(x) {
-  lapply(x$chow_test$reg_lst$reg_lst, function(x) print(summary(x)))
+  reg_out <- x$chow_test$reg_lst$reg_lst
+  cat("Group-Specific Regression\n")  
+  for (i in seq_along(reg_out)) {
+    cat("\nGroup:", paste0(x$mods$group_names[i]), "\n")
+    print(summary(reg_out[[i]]))
+  }
   print(x$chow_test)
   print(x$coef_test)
   print(x$het_test)

@@ -19,7 +19,7 @@ regmod <- function(restrict, group, data, lw_lst, error, robust) {
   }
   reg_lst <- unname(reg_lst)
   valid_b <- lapply(reg_lst, function(x) !is.na(coef(x)))
-  knum <- Reduce(intersect, mapply(which, valid_b))
+  knum <- Reduce(intersect, mapply(which, valid_b, SIMPLIFY = FALSE))
   kstr <- names(valid_b[[1]])[knum]
   b <- do.call(c, lapply(reg_lst, function(x) coefficients(x)[kstr]))
   if (is.null(robust)) {
@@ -28,6 +28,6 @@ regmod <- function(restrict, group, data, lw_lst, error, robust) {
   else   vm <- bdiag(lapply(reg_lst, function(x) vcovHC(x, robust)[kstr, kstr]))
   G <- length(reg_lst)
   K <- length(kstr)
-  list(reg_lst = reg_lst, coef_names = kstr, type = type, 
-       b = b, vm = vm, K = K, G = G, n_lst = n_lst)
+  list(reg_lst = reg_lst, coef_names = kstr, group_names = colnames(mmat), 
+       type = type, b = b, vm = vm, K = K, G = G, n_lst = n_lst)
 }
