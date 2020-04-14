@@ -22,15 +22,14 @@ used to identify regimes (i.e. no dependent variable needed).}
 
 \item{data}{model data frame.}
 
-\item{partial}{a logical value indicating whether or not to include
+\item{var_int}{a logical value indicating whether or not to include
 group-specific intercepts in the restricted model.  Default is \code{FALSE}}
 
-\item{modtype}{string indicating the type of model to use.  \command{lm}
-indicates a non-spatial Chow test while \command{lagsarlm} and
-\command{errorsarlm} indicate alternative versions of a spatial Chow test.
-The default is \command{lm}.}
+\item{lw_lst}{a list of \code{listw} objects correspodning to the levels of 
+the factor used to define regimes.  The default value is \code{NULL}.}
 
-\item{listw}{a \code{listw} object.  The default value is \code{NULL}.}
+\item{error}{string indicating the type of model to use.  \command{lm}
+indicates a non-spatial Chow test while \command{lagsarlm} and}
 
 \item{...}{additional arguments to be passed to the model-fitting routine.}
 }
@@ -65,11 +64,11 @@ likelihood ratio test.  The null model can be adjusted to allow for
 regime-specific intercepts.
 }
 \examples{
-data(vote1890, package = "spregime")
-#Spatial Chow
-chow<-spchow(restrict = VOTE~WHEAT+DAIRY+TENANT+GERMAN+SCAND, group = ~STATE,
- data = vote1890, modtype = "lagsarlm", listw = vote.wgts)
-chow
+data(nat60_sf)
+#Spatial Regime Model
+reg_mod60 <- regime(HR60 ~ RD60 + PS60 + MA60 + DV60 + UE60, 
+group = ~ STATE, data = nat60_sf)
+reg_mod60
 }
 \references{
 Anselin, L.  1988.
