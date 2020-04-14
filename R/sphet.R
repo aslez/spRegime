@@ -1,6 +1,6 @@
 sphet <- function(mods) {
-  if (mods$type != 'ols') {
-    sigma2 <- sapply(mods$reg_lst, function(x) summary(x)$s2)    
+  if (mods$type != "ols") {
+    sigma2 <- sapply(mods$reg_lst, function(x) summary(x)$s2)
   }
   else {
     sigma2 <- sapply(mods$reg_lst, function(x) summary(x)$sigma^2)
@@ -12,6 +12,6 @@ sphet <- function(mods) {
   result <- list(reg_lst = mods,
                   het_coef = sigma2, het_vcov = het_vcov,
                   wald = wald, wald.p = p)
-  class(result) <- 'sphet'
+  class(result) <- "sphet"
   result
 }

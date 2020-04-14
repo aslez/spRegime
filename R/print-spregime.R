@@ -14,7 +14,7 @@ print.spchow <- function(x) {
   cat("\nTests for Regime Stability\n")
   cat("\nWald Test\n\n")
   wald_df <- data.frame(w = round(x$wald, 2), p = round(x$wald.p, 4))
-  names(wald_df) <- c('Test Statistic', 'p-value')
+  names(wald_df) <- c("Test Statistic", "p-value")
   print(wald_df, row.names = FALSE)
 }
 
@@ -23,7 +23,7 @@ print.spcoef <- function(x) {
   cat("\nWald Tests\n\n")
   wald_df <- data.frame(name = x$coef_names,
                         w = round(x$wald, 2), p = round(x$wald.p, 4))
-  names(wald_df) <- c('Coefficient', 'Test Statistic', 'p-value')
+  names(wald_df) <- c("Coefficient", "Test Statistic", "p-value")
   print(wald_df, row.names = FALSE)
 }
 
@@ -33,6 +33,6 @@ print.sphet <- function(x) {
   print(x$het_coef)
   cat("\nWald Test\n\n")
   wald_df <- data.frame(w = round(x$wald, 2), p = round(x$wald.p, 4))
-  names(wald_df) <- c('Test Statistic', 'p-value')
+  names(wald_df) <- c("Test Statistic", "p-value")
   print(wald_df, row.names = FALSE)
 }

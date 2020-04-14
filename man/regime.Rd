@@ -67,7 +67,7 @@ regime-specific intercepts.
 data(nat60_sf)
 #Spatial Regime Model
 reg_mod60 <- regime(HR60 ~ RD60 + PS60 + MA60 + DV60 + UE60, 
-group = ~ STATE, data = nat60_sf)
+\tab group = ~ SOUTH, data = nat60_sf)
 reg_mod60
 }
 \references{
