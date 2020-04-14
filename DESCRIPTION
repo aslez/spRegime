@@ -1,5 +1,5 @@
-Package: spregime
-Date: 2015-02-20
+Package: spRegime
+Date: 2020-04-14
 Title: Spatial regime analysis
 Version: 0.1
 Authors@R: person("Adam", "Slez", email = "aslez@virginia.edu",
@@ -13,3 +13,4 @@ Suggests: testthat
 Packaged: 2015-02-25 21:44:28 UTC; Adam
 Author: Adam Slez [aut, cre]
 Maintainer: Adam Slez <aslez@virginia.edu>
+RoxygenNote: 7.0.2
