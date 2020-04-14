@@ -8,7 +8,7 @@ spcoef <- function(mods) {
   result <- list(reg_lst = mods,
                  wald = wald, wald.p = p,
                  coef_names = mods$coef_names)
-  class(result) <- 'spcoef'
+  class(result) <- "spcoef"
   result
 }
 

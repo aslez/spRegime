@@ -11,7 +11,7 @@ regime(
   var_int = FALSE,
   lw_lst = NULL,
   error = TRUE,
-  robust = NULL
+  robust = FALSE
 )
 }
 \arguments{
@@ -25,23 +25,19 @@ used to identify regimes (i.e. no dependent variable needed).}
 \item{var_int}{a logical value indicating whether or not to include
 group-specific intercepts in the restricted model.  Default is \code{FALSE}}
 
-\item{lw_lst}{a list of \code{listw} objects correspodning to the levels of 
+\item{lw_lst}{a list of \code{listw} objects corresponding to the levels of 
 the factor used to define regimes.  The default value is \code{NULL}.}
 
-\item{error}{string indicating the type of model to use.  \command{lm}
-indicates a non-spatial Chow test while \command{lagsarlm} and}
+\item{error}{a logical value indicating type of spatial regime model to use
+when \code{!is.null(lw_lst)}.  A value of \code{TRUE} produces a spatial
+error model, while a value of \code{FALSE} produces a spatial lag model.
+#' @param robust a logical value indicating whether to use HC3 standard 
+errors.}
 
 \item{...}{additional arguments to be passed to the model-fitting routine.}
 }
 \value{
-A spregime object containing the following elements:
-\item{mods}{the call used to create this object.}
-\item{chow_test}{either "lm", "errorsarlm", or "lagsarlm".}
-\item{coef_test}{the coefficients associated with the restricted model.}
-\item{het_test}{a \code{sphet} class object containing the components of a
-test for groupwise heteroskedasticity, including the original regime-specific
-models, the regime-specific variances, the variance-covariance matrix, the
-Wald statistics, and the p-value.}
+
 }
 \description{
 Estimates the stability of a given model across a set of
@@ -65,7 +61,6 @@ regime-specific intercepts.
 }
 \examples{
 data(nat60_sf)
-#Spatial Regime Model
 reg_mod60 <- regime(HR60 ~ RD60 + PS60 + MA60 + DV60 + UE60, 
      group = ~ SOUTH, data = nat60_sf)
 reg_mod60

@@ -24,20 +24,32 @@
 #' @param data model data frame.
 #' @param var_int a logical value indicating whether or not to include
 #' group-specific intercepts in the restricted model.  Default is \code{FALSE}
-#' @param lw_lst a list of \code{listw} objects correspodning to the levels of 
+#' @param lw_lst a list of \code{listw} objects corresponding to the levels of 
 #' the factor used to define regimes.  The default value is \code{NULL}.
-#' @param error string indicating the type of model to use.  \command{lm}
-#' indicates a non-spatial Chow test while \command{lagsarlm} and
+#' @param error a logical value indicating type of spatial regime model to use
+#' when \code{!is.null(lw_lst)}.  A value of \code{TRUE} produces a spatial
+#' error model, while a value of \code{FALSE} produces a spatial lag model.
+#' #' @param robust a logical value indicating whether to use HC3 standard 
+#' errors.
 #' @param ... additional arguments to be passed to the model-fitting routine.
 #'
 #' @return A spregime object containing the following elements:
-#' \item{mods}{the call used to create this object.}
-#' \item{chow_test}{either "lm", "errorsarlm", or "lagsarlm".}
-#' \item{coef_test}{the coefficients associated with the restricted model.}
+#' \item{mods}{a list of objects of containing information from the
+#' regime-specific models, including the models themselves, as well as the
+#' coefficient names, the regime names, the model type, the parameter estimates,
+#' the variance-covariance matrix, the number of predictors, the number of
+#' regimes, and the number of observations per regime.
+#' \item{chow_test}{a \code{spchow} class object containing the components used
+#' to test the overall stability of the coefficients, including the original 
+#' regime-specific models, the Wald statistic, and the p-value.}
+#' \item{coef_test}{a \code{spcoef} class object containing the components used
+#' to test the stability of individual coefficients, including the original 
+#' regime-specific models, the Wald statistics, the p-values, and the names of
+#' the coefficients.}
 #' \item{het_test}{a \code{sphet} class object containing the components of a
 #' test for groupwise heteroskedasticity, including the original regime-specific
 #' models, the regime-specific variances, the variance-covariance matrix, the
-#' Wald statistics, and the p-value.}
+#' Wald statistic, and the p-value.}
 #'
 #' @references Anselin, L.  1988.
 #' \emph{Spatial Econometrics: Methods and Models}.
@@ -50,13 +62,12 @@
 #' @export
 #' @examples
 #' data(nat60_sf)
-#' #Spatial Regime Model
 #' reg_mod60 <- regime(HR60 ~ RD60 + PS60 + MA60 + DV60 + UE60, 
 #'      group = ~ SOUTH, data = nat60_sf)
 #' reg_mod60
 
 regime <- function(restrict, group, data, var_int = FALSE,
-                   lw_lst = NULL, error = TRUE, robust = NULL) {
+                   lw_lst = NULL, error = TRUE, robust = FALSE) {
   mods <- regmod(restrict, group, data, lw_lst, error, robust)
   chow_test <- spchow(mods, var_int = var_int)
   coef_test <- spcoef(mods)

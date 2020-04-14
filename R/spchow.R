@@ -12,7 +12,7 @@ spchow <- function(mods, var_int) {
   wald <- wald_test(R, mods$b, mods$vm)
   p <- pchisq(wald, (G - 1) * K, lower.tail = FALSE)
   result <- list(reg_lst = mods, wald = wald, wald.p = p)
-  class(result) <- 'spchow'
+  class(result) <- "spchow"
   result
 }
 
