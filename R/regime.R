@@ -52,7 +52,7 @@
 #' data(nat60_sf)
 #' #Spatial Regime Model
 #' reg_mod60 <- regime(HR60 ~ RD60 + PS60 + MA60 + DV60 + UE60, 
-#' \tab group = ~ SOUTH, data = nat60_sf)
+#'      group = ~ SOUTH, data = nat60_sf)
 #' reg_mod60
 
 regime <- function(restrict, group, data, var_int = FALSE,
