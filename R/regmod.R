@@ -1,5 +1,7 @@
 regmod <- function(restrict, group, data, lw_lst, error, robust) {
   mmat <- as.data.frame(model.matrix(update(group, ~ . -1), data))
+  group_var <- attr(terms(group), "term.labels")
+  group_names <- gsub(paste0("^.*?", group_var), "", colnames(mmat))
   if (!is.null(lw_lst) & error) {
     reg_lst <- lapply(seq_along(mmat), function(x) 
       errorsarlm(restrict, data[as.logical(mmat[[x]]), ], lw_lst[[x]]))
@@ -25,6 +27,6 @@ regmod <- function(restrict, group, data, lw_lst, error, robust) {
   vm <- bdiag(lapply(reg_lst, function(x) vcovHC(x, robust)[kstr, kstr]))
   G <- length(reg_lst)
   K <- length(kstr)
-  list(reg_lst = reg_lst, coef_names = kstr, group_names = colnames(mmat), 
+  list(reg_lst = reg_lst, coef_names = kstr, group_names = group_names, 
        type = type, b = b, vm = vm, K = K, G = G, n_lst = n_lst)
 }

@@ -7,8 +7,8 @@ print.spregime <- function(x) {
     mod_lst$vm[(((z - 1) * K) + 1):(z * K), (((z - 1) * K) + 1):(z * K)])
   
   cat("Group-Specific Regression\n")  
-  for (i in seq_along(reg_out)) {
-    cat("\nGroup:", paste0(x$mods$group_names[i]), "\n")
+  for (i in seq_along(reg_lst)) {
+    cat("\nGroup:", paste0(mod_lst$group_names[i]), "\n")
     print(lmtest::coeftest(reg_lst[[i]], as.matrix(vm_lst[[i]])))
   }
   print(x$chow_test)
