@@ -1,9 +1,15 @@
 print.spregime <- function(x) {
-  reg_out <- x$chow_test$reg_lst$reg_lst
+  mod_lst <- x$mods
+  reg_lst <- mod_lst$reg_lst
+  K <- mod_lst$K
+  G <- mod_lst$G
+  vm_lst <- lapply(1:G, function(z) 
+    mod_lst$vm[(((z - 1) * K) + 1):(z * K), (((z - 1) * K) + 1):(z * K)])
+  
   cat("Group-Specific Regression\n")  
   for (i in seq_along(reg_out)) {
     cat("\nGroup:", paste0(x$mods$group_names[i]), "\n")
-    print(summary(reg_out[[i]]))
+    print(lmtest::coeftest(reg_lst[[i]], as.matrix(vm_lst[[i]])))
   }
   print(x$chow_test)
   print(x$coef_test)

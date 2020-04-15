@@ -6,7 +6,7 @@ Authors@R: person("Adam", "Slez", email = "aslez@virginia.edu",
     role = c("aut", "cre"))
 Description: This package provides basic tools for testing for the existence of
     spatial regimes.
-Depends: Matrix
+Depends: Matrix, lmtest, sandwich, spdep
 License: MIT + file LICENSE
 LazyData: true
 Suggests: testthat
