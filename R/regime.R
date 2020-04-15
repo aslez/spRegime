@@ -29,8 +29,9 @@
 #' @param error a logical value indicating type of spatial regime model to use
 #' when \code{!is.null(lw_lst)}.  A value of \code{TRUE} produces a spatial
 #' error model, while a value of \code{FALSE} produces a spatial lag model.
-#' #' @param robust a logical value indicating whether to use HC3 standard 
-#' errors.
+#' #' @param robust a character string to be passed to \code{vcovHC} denoting
+#' the type of standard errors to be used.  The default value is \code{const},
+#' which produces conventional standard errors.
 #' @param ... additional arguments to be passed to the model-fitting routine.
 #'
 #' @return A spregime object containing the following elements:
@@ -67,7 +68,7 @@
 #' reg_mod60
 
 regime <- function(restrict, group, data, var_int = FALSE,
-                   lw_lst = NULL, error = TRUE, robust = FALSE) {
+                   lw_lst = NULL, error = TRUE, robust = "const") {
   mods <- regmod(restrict, group, data, lw_lst, error, robust)
   chow_test <- spchow(mods, var_int = var_int)
   coef_test <- spcoef(mods)
